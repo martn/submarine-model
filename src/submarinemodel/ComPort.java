@@ -73,15 +73,10 @@ class ComPort implements Runnable, SerialPortEventListener {
             } catch (IOException e) {
             }
 
-            try {
-                serialPort.addEventListener(this);
-                serialPort.notifyOnDataAvailable(true);
-            } catch (TooManyListenersException e) {
-
-            }
+            
 
             // activate the DATA_AVAILABLE notifier
-            serialPort.notifyOnDataAvailable(true);
+            //serialPort.notifyOnDataAvailable(true);
 
             try {
                 // set default port parameters
@@ -96,7 +91,14 @@ class ComPort implements Runnable, SerialPortEventListener {
                 outputStream = serialPort.getOutputStream();
             } catch (IOException e) {
             }
-
+            
+          /*  try {
+                serialPort.addEventListener(this);
+                serialPort.notifyOnDataAvailable(true);
+                Util.log.write("ok");
+            } catch (TooManyListenersException e) {
+                Util.log.write("Too many listeners");
+            }*/
             // start the read thread
             // readThread = new Thread(this);
             // readThread.start();
@@ -144,18 +146,7 @@ class ComPort implements Runnable, SerialPortEventListener {
         inputBufferCount = 0;
     }
 
-    /**
-     * copies elements from one array to another
-     * @param targetArray
-     * @param sourceArray
-     * @param count
-     */
-    /*    private void arrayCopy(byte targetArray[], byte sourceArray[], int count) {
-    for (int i = 0; i < count; i++) {
-    targetArray[i]=sourceArray[i];
-    }
-
-    }*/
+    
     /**
      * writes string to port
      * @param string
@@ -203,7 +194,7 @@ class ComPort implements Runnable, SerialPortEventListener {
      * method fired if new data in read buffer, for overriding
      */
     public void dataAvailable() {
-        
+        Util.log.write("data");
     }
 
     
@@ -213,7 +204,7 @@ class ComPort implements Runnable, SerialPortEventListener {
      */
     synchronized public void serialEvent(SerialPortEvent event) {
 
-       // Util.log.write("Event: "+event.getEventType());
+        Util.log.write("Event: "+event.getEventType());
         switch (event.getEventType()) {
             case SerialPortEvent.BI:
             case SerialPortEvent.OE:

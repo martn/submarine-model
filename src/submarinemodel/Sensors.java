@@ -12,9 +12,10 @@ import java.util.Timer;
  */
 public class Sensors {
 
-    public static final int WRITE_PERIOD = 1000;
+    public static final int WRITE_PERIOD = 2000;
     private SubmarinePort port;
-    private Timer timer = new Timer();
+    private Timer timer;    // = new Timer();
+    //private SensorsTimerTask timerTask;
     private Boolean running = false;
     public static final int DATA_START_CODE = 64;
     public static final int DATA_INDEX_TEMPERATURE = 3;
@@ -53,7 +54,7 @@ public class Sensors {
     public Sensors(SubmarinePort p) {
         port = p;
 
-
+        //timerTask = new SensorsTimerTask(this);
     }
 
     /**
@@ -62,7 +63,8 @@ public class Sensors {
     public void start() {
         if (!running) {
             running = true;
-
+            
+            timer = new Timer();
             timer.scheduleAtFixedRate(new SensorsTimerTask(this), 0, WRITE_PERIOD);
         }
     }
@@ -75,6 +77,7 @@ public class Sensors {
             running = false;
 
             timer.cancel();
+            //timer = new Timer();
         }
     }
 

@@ -23,8 +23,6 @@ public class SubmarinePort extends ComPort {
 
         super(config.getProperty("portId"));
 
-
-
         try {
 
             // set default port parameters
@@ -33,7 +31,6 @@ public class SubmarinePort extends ComPort {
                     SerialPort.PARITY_NONE);
         } catch (UnsupportedCommOperationException e) {
         }
-
-        
     }
+    
 }
